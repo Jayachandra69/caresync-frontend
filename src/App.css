@@ -1,0 +1,1428 @@
+
+/* =====================================================
+   CARESYNC FLOATING EDIT / DELETE WINDOWS
+   Append-only styles: existing dashboard styles remain intact.
+   ===================================================== */
+
+.edit-overlay {
+    z-index: 11000;
+    background: rgba(15, 23, 42, 0.62);
+    backdrop-filter: blur(4px);
+    padding: 18px;
+}
+
+.edit-modal-card,
+.delete-modal-card {
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.28);
+    animation: careSyncModalIn 0.22s ease-out;
+}
+
+.edit-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 25px 28px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #f8fbff;
+}
+
+.edit-modal-eyebrow {
+    display: block;
+    margin-bottom: 7px;
+    color: #1565c0;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+}
+
+.edit-modal-header h2 {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    color: #0f172a !important;
+    font-size: 24px;
+    text-align: left;
+}
+
+.edit-modal-header p {
+    margin: 8px 0 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.edit-modal-x {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: #eaf1fb;
+    color: #334155;
+    font-size: 25px;
+    line-height: 1;
+}
+
+.edit-modal-x:hover {
+    background: #dbeafe;
+    color: #0f172a;
+}
+
+.edit-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0 !important;
+    padding: 25px 28px 28px !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+}
+
+.edit-modal-form > label,
+.edit-modal-two-columns > label {
+    display: flex !important;
+    flex-direction: column;
+    gap: 8px;
+    width: 100% !important;
+    margin: 0;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.edit-modal-form input,
+.edit-modal-form select {
+    width: 100% !important;
+    min-width: 0;
+    height: 44px;
+    margin: 0;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #0f172a;
+    font-family: inherit;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.edit-modal-form input:focus,
+.edit-modal-form select:focus {
+    outline: none;
+    border-color: #1565c0;
+    box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.12);
+}
+
+.edit-modal-form input[readonly] {
+    background: #f1f5f9;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+.edit-modal-two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.edit-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.edit-modal-actions button {
+    min-height: 42px;
+    margin: 0 !important;
+    padding: 10px 17px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.secondary-modal-button {
+    background: #f1f5f9;
+    color: #334155;
+    border-color: #cbd5e1 !important;
+}
+
+.secondary-modal-button:hover {
+    background: #e2e8f0;
+}
+
+.primary-modal-button {
+    background: #1565c0;
+    color: #ffffff;
+}
+
+.primary-modal-button:hover {
+    background: #0d47a1;
+}
+
+.delete-modal-card {
+    max-width: 420px;
+    padding: 32px;
+    text-align: center;
+}
+
+.delete-modal-icon {
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: #fee2e2;
+    color: #b91c1c;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.delete-modal-card h2 {
+    margin: 0 0 12px !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    color: #0f172a !important;
+    font-size: 23px;
+}
+
+.delete-modal-card p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.delete-modal-card .edit-modal-actions {
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.danger-modal-button {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+.danger-modal-button:hover {
+    background: #b91c1c;
+}
+
+@keyframes careSyncModalIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.985);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 520px) {
+    .edit-overlay {
+        padding: 10px;
+    }
+
+    .edit-modal-header {
+        padding: 20px 20px 16px;
+    }
+
+    .edit-modal-form {
+        padding: 20px !important;
+    }
+
+    .edit-modal-two-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .edit-modal-actions button {
+        flex: 1;
+        padding: 10px 12px;
+    }
+
+    .delete-modal-card {
+        padding: 26px 20px;
+    }
+}
+
+
+/* CareSync floating edit and delete windows */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  width: min(100%, 520px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+  animation: modalEnter 0.2s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #0f172a;
+}
+
+.modal-close {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #eef2f7;
+  color: #334155;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-body input,
+.modal-body select,
+.modal-body textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.modal-cancel {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.modal-danger {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 20px;
+  }
+
+  .modal-actions {
+    flex-wrap: wrap;
+  }
+}
+
+/* =========================================
+   CARESYNC TOAST NOTIFICATIONS
+========================================= */
+
+.notification {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    min-width: 280px;
+    max-width: 420px;
+    padding: 16px 22px;
+
+    border-radius: 12px;
+    background: #ffffff;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+
+    animation: toastSlideIn 0.35s ease-out;
+}
+
+/* SUCCESS NOTIFICATION */
+
+.notification.success {
+    border-left: 5px solid #16a34a;
+    color: #166534;
+    background: #f0fdf4;
+}
+
+/* ERROR NOTIFICATION */
+
+.notification.error {
+    border-left: 5px solid #dc2626;
+    color: #991b1b;
+    background: #fef2f2;
+}
+
+/* NOTIFICATION ICON */
+
+.notification-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+
+    border-radius: 50%;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.notification.success .notification-icon {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.notification.error .notification-icon {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* SLIDE-IN ANIMATION */
+
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 480px) {
+    .notification {
+        top: 15px;
+        right: 15px;
+        left: 15px;
+
+        min-width: 0;
+        max-width: none;
+
+        padding: 14px 16px;
+        font-size: 14px;
+    }
+}
+
+/* ==========================================
+   CARESYNC — PROFESSIONAL DASHBOARD UI
+========================================== */
+
+:root {
+    --care-primary: #2563eb;
+    --care-primary-dark: #1d4ed8;
+    --care-bg: #f5f7fc;
+    --care-card: #ffffff;
+    --care-text: #172033;
+    --care-muted: #64748b;
+    --care-border: #e5eaf2;
+    --care-radius: 16px;
+}
+
+/* MAIN PAGE */
+
+body {
+    background: var(--care-bg);
+    color: var(--care-text);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.container {
+    width: min(1440px, 94%);
+    margin: 0 auto;
+    padding: 28px 0 50px;
+}
+
+/* MAIN HEADER */
+
+#top-section {
+    margin: 0 0 25px;
+    padding: 28px 30px;
+    border-radius: 18px;
+
+    background: linear-gradient(
+        120deg,
+        #1d4ed8,
+        #3b82f6,
+        #60a5fa
+    );
+
+    color: #ffffff;
+    font-size: clamp(25px, 3vw, 36px);
+    font-weight: 750;
+    letter-spacing: -0.5px;
+
+    box-shadow: 0 10px 28px rgba(37, 99, 235, 0.18);
+}
+
+/* NAVIGATION */
+
+.main-navigation {
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px;
+    margin-bottom: 35px;
+
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid var(--care-border);
+    border-radius: 15px;
+
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.05);
+    backdrop-filter: blur(12px);
+}
+
+.main-navigation button {
+    padding: 12px 19px;
+    margin: 0;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    background: transparent;
+    color: #475569;
+
+    font-size: 14px;
+    font-weight: 650;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.main-navigation button:hover {
+    background: #eff6ff;
+    color: var(--care-primary);
+    border-color: #dbeafe;
+    transform: translateY(-1px);
+}
+
+/* SECTION HEADINGS */
+
+h2 {
+    margin: 35px 0 20px;
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid var(--care-border);
+
+    color: var(--care-text);
+    font-size: 23px;
+    font-weight: 750;
+    letter-spacing: -0.3px;
+}
+
+h3 {
+    color: var(--care-text);
+}
+
+/* DASHBOARD STATISTICS */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    margin: 22px 0 35px;
+}
+
+.dashboard-card {
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    min-height: 110px;
+    padding: 24px;
+
+    background: var(--care-card);
+    border: 1px solid var(--care-border);
+    border-top: 3px solid var(--care-primary);
+    border-radius: var(--care-radius);
+
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.035);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.09);
+}
+
+.dashboard-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+    width: 62px;
+    height: 62px;
+
+    border-radius: 16px;
+    background: #eff6ff;
+
+    font-size: 30px;
+}
+
+.dashboard-card span {
+    display: block;
+    margin-bottom: 9px;
+
+    color: var(--care-muted);
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.dashboard-card strong {
+    display: block;
+    color: var(--care-text);
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+/* ANALYTICS CARDS */
+
+.analytics-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-bottom: 35px;
+}
+
+.analytics-card {
+    min-width: 0;
+    padding: 25px;
+
+    background: var(--care-card);
+    border: 1px solid var(--care-border);
+    border-radius: var(--care-radius);
+
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.035);
+}
+
+.analytics-card h3 {
+    margin: 0 0 24px;
+    font-size: 17px;
+    font-weight: 750;
+}
+
+/* TABLE CONTAINERS */
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #ffffff;
+}
+
+thead th {
+    padding: 16px 14px;
+
+    background: #f1f5f9;
+    color: #475569;
+
+    font-size: 12px;
+    font-weight: 750;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+
+    border-bottom: 1px solid var(--care-border);
+}
+
+tbody td {
+    padding: 15px 14px;
+
+    color: #334155;
+    font-size: 14px;
+
+    border-bottom: 1px solid #edf0f5;
+}
+
+tbody tr {
+    transition: background 0.15s ease;
+}
+
+tbody tr:hover {
+    background: #f8faff;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* BUTTONS */
+
+button {
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+button:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 3px;
+}
+
+/* SECTION NAVIGATION SCROLL */
+
+.section-anchor {
+    scroll-margin-top: 100px;
+}
+
+/* RESPONSIVE TABLES */
+
+@media (max-width: 1000px) {
+    .dashboard {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .analytics-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .container {
+        width: 94%;
+        padding-top: 15px;
+    }
+
+    #top-section {
+        padding: 22px 18px;
+        font-size: 25px;
+    }
+
+    .main-navigation {
+        position: static;
+        gap: 6px;
+        padding: 9px;
+    }
+
+    .main-navigation button {
+        flex: 1 1 40%;
+        padding: 11px 8px;
+        font-size: 13px;
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .dashboard-card {
+        padding: 19px;
+    }
+
+    .analytics-card {
+        padding: 18px;
+    }
+
+    h2 {
+        font-size: 21px;
+    }
+
+    /* Allow wide tables to scroll on mobile */
+    table {
+        min-width: 650px;
+    }
+}
+
+/* =========================================
+   CARESYNC — NAVY & TEAL THEME
+========================================= */
+
+:root {
+    --care-primary: #0f766e;
+    --care-primary-dark: #115e59;
+    --care-navy: #142b45;
+    --care-teal: #14b8a6;
+    --care-bg: #f1f5f9;
+    --care-card: #ffffff;
+    --care-text: #1e293b;
+    --care-muted: #64748b;
+    --care-border: #e2e8f0;
+}
+
+/* PAGE BACKGROUND */
+
+body {
+    background: var(--care-bg);
+    color: var(--care-text);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* CARESYNC HEADER */
+
+#top-section {
+    background: linear-gradient(
+        120deg,
+        #142b45,
+        #164e63,
+        #0f766e
+    );
+
+    color: #ffffff;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 12px 30px rgba(20, 43, 69, 0.16);
+}
+
+/* NAVIGATION */
+
+.main-navigation {
+    background: #ffffff;
+    border: 1px solid var(--care-border);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.05);
+}
+
+.main-navigation button {
+    color: var(--care-navy);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.main-navigation button:hover {
+    background: #ccfbf1;
+    color: var(--care-primary-dark);
+    transform: translateY(-2px);
+}
+
+/* SECTION HEADINGS */
+
+h2 {
+    color: var(--care-navy);
+    border-bottom-color: var(--care-border);
+}
+
+/* DASHBOARD CARDS */
+
+.dashboard-card {
+    background: var(--care-card);
+    border: 1px solid var(--care-border);
+    border-top: 4px solid var(--care-teal);
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.09);
+}
+
+.dashboard-icon {
+    background: #ccfbf1;
+    border-radius: 16px;
+}
+
+.dashboard-card span {
+    color: var(--care-muted);
+}
+
+.dashboard-card strong {
+    color: var(--care-navy);
+}
+
+/* ANALYTICS PANELS */
+
+.analytics-card {
+    background: var(--care-card);
+    border: 1px solid var(--care-border);
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.04);
+}
+
+.analytics-card h3 {
+    color: var(--care-primary-dark);
+}
+
+/* ANALYTICS BARS */
+
+.disease-bar {
+    background: linear-gradient(90deg, #0f766e, #14b8a6);
+}
+
+.age-bar {
+    background: linear-gradient(90deg, #115e59, #2dd4bf);
+}
+
+/* TABLE HEADERS */
+
+thead th {
+    background: #e6fffa;
+    color: var(--care-navy);
+    border-bottom-color: var(--care-border);
+}
+
+tbody tr:hover {
+    background: #f0fdfa;
+}
+
+/* SECTION SCROLL POSITION */
+
+.section-anchor {
+    scroll-margin-top: 100px;
+}
+
+/* =========================================
+   CARESYNC WELCOME BANNER
+========================================= */
+
+.welcome-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+
+    padding: 30px;
+    margin-bottom: 25px;
+
+    color: #ffffff;
+    background: linear-gradient(
+        120deg,
+        #142b45,
+        #164e63,
+        #0f766e
+    );
+
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(20, 43, 69, 0.16);
+}
+
+.welcome-content {
+    flex: 1;
+}
+
+.welcome-label {
+    display: inline-block;
+    margin-bottom: 12px;
+
+    color: #99f6e4;
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 1.5px;
+}
+
+.welcome-content h1 {
+    margin: 0 0 12px;
+    padding: 0;
+    border: none;
+
+    color: #ffffff;
+    font-size: clamp(25px, 3vw, 34px);
+    font-weight: 750;
+}
+
+.welcome-content p {
+    max-width: 600px;
+    margin: 0;
+
+    color: #dbeafe;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.welcome-date {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    min-width: 145px;
+    padding: 18px;
+
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+}
+
+.welcome-date span {
+    color: #ccfbf1;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.welcome-date strong {
+    color: #ffffff;
+    font-size: 18px;
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 650px) {
+    .welcome-banner {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 22px;
+    }
+
+    .welcome-date {
+        min-width: 0;
+    }
+
+    .welcome-content p {
+        font-size: 14px;
+    }
+}
+
+/* =========================================
+   CARESYNC RESPONSIVE DESIGN
+   Desktop + Tablet + Mobile
+========================================= */
+
+/* Prevent unwanted horizontal scrolling */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+/* Main application containers */
+.container,
+.dashboard {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.container {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Navigation */
+.main-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+}
+
+.main-navigation button {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Dashboard welcome section */
+.welcome-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  min-width: 0;
+}
+
+.welcome-content {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.welcome-content h1 {
+  overflow-wrap: anywhere;
+}
+
+.welcome-content p {
+  overflow-wrap: anywhere;
+}
+
+.welcome-date {
+  flex: 0 1 auto;
+}
+
+/* Dashboard cards and statistics */
+.dashboard,
+.analytics-container {
+  min-width: 0;
+}
+
+.analytics-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.analytics-container > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Tables: scroll inside the table area */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container,
+.table-wrapper,
+.analytics-table-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table th,
+table td {
+  overflow-wrap: anywhere;
+}
+
+/* Forms and inputs */
+input,
+select,
+textarea,
+button {
+  font: inherit;
+  max-width: 100%;
+}
+
+input,
+select,
+textarea {
+  min-width: 0;
+}
+
+form {
+  max-width: 100%;
+}
+
+/* Modals */
+.modal-overlay {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.patient-modal,
+.edit-modal-card,
+.delete-modal-card {
+  width: 100%;
+  max-width: 600px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+.edit-modal-form {
+  min-width: 0;
+}
+
+.edit-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.edit-modal-actions button {
+  flex: 1 1 120px;
+}
+
+/* =========================================
+   TABLETS - 1000px and below
+========================================= */
+
+@media (max-width: 1000px) {
+  .container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .main-navigation {
+    gap: 8px;
+  }
+
+  .analytics-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .welcome-banner {
+    align-items: flex-start;
+  }
+}
+
+/* =========================================
+   MOBILE - 650px and below
+========================================= */
+
+@media (max-width: 650px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* Navigation */
+  .main-navigation {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .main-navigation button {
+    flex: 1 1 130px;
+    min-height: 42px;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  /* Welcome banner */
+  .welcome-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .welcome-content {
+    width: 100%;
+    flex: 1 1 auto;
+  }
+
+  .welcome-content h1 {
+    font-size: clamp(22px, 6vw, 30px);
+    line-height: 1.3;
+  }
+
+  .welcome-content p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .welcome-date {
+    align-self: flex-start;
+  }
+
+  /* Analytics cards */
+  .analytics-container {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  /* Tables */
+  .table-container,
+  .table-wrapper,
+  .analytics-table-container {
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  table {
+    min-width: 600px;
+  }
+
+  /* Modal windows */
+  .modal-overlay {
+    padding: 12px;
+    align-items: center;
+  }
+
+  .patient-modal,
+  .edit-modal-card,
+  .delete-modal-card {
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100dvh - 24px);
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .modal-header,
+  .edit-modal-header {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .modal-body {
+    min-width: 0;
+  }
+
+  .detail-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    overflow-wrap: anywhere;
+  }
+
+  .edit-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .edit-modal-actions button {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 42px;
+  }
+
+  /* Buttons and inputs */
+  input,
+  select,
+  textarea {
+    width: 100%;
+    min-height: 42px;
+  }
+
+  button {
+    min-height: 40px;
+  }
+
+  /* Notifications */
+  .notification {
+    width: calc(100% - 24px);
+    max-width: 400px;
+    left: 12px;
+    right: 12px;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE - 380px and below
+========================================= */
+
+@media (max-width: 380px) {
+  .container {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .welcome-banner {
+    padding: 14px;
+  }
+
+  .welcome-content h1 {
+    font-size: 22px;
+  }
+
+  .main-navigation button {
+    flex-basis: 100%;
+  }
+
+  .patient-modal,
+  .edit-modal-card,
+  .delete-modal-card {
+    padding: 12px;
+  }
+}
+
+/* ==================================
+   CARESYNC - MOBILE TABLE FIX
+================================== */
+
+@media (max-width: 650px) {
+
+  /* Keep the table inside the mobile screen */
+  table {
+    min-width: 650px;
+  }
+
+  /* Allow horizontal scrolling inside table sections */
+  .table-container,
+  .table-wrapper,
+  .analytics-table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Keep table text readable */
+  table th,
+  table td {
+    white-space: nowrap;
+    padding: 12px 14px;
+  }
+}
