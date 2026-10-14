@@ -1,16 +1,60 @@
-# React + Vite
+# 🏥 CareSync — Healthcare Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern healthcare management dashboard built with React and Vite,
+designed to bring patient records, doctor information, and appointment
+management together in one application.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 🔐 Login and authentication
+- 👥 Role-based access for Admin, Doctor, and Receptionist
+- 🧑‍⚕️ Patient management
+- 🩺 Doctor directory and management
+- 📅 Appointment management
+- 🔎 Search and view records
+- 🔗 Integration with a Spring Boot backend
+- 📱 Responsive user interface
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Frontend
+- React
+- JavaScript
+- Vite
+- HTML5
+- CSS3
 
-## Expanding the ESLint configuration
+### Backend
+- Java
+- Spring Boot
+- Spring Security
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Database
+- MySQL
+
+## 🏗️ Project Architecture
+
+React Frontend
+      |
+      | HTTP Requests
+      v
+Spring Boot REST API
+      |
+      v
+MySQL Database
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Install the following:
+
+- Node.js and npm
+- Git
+- A running CareSync Spring Boot backend
+- MySQL
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Jayachandra69/caresync-frontend.git
